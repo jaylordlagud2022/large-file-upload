@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Upload Video</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" accept="video/*">
+        <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+    <div id="message" class="message"></div>
+</div>
+
+<script>
+    async function uploadFile() {
+        const messageDiv = document.getElementById('message');
+        messageDiv.textContent = '';
+        messageDiv.classList.remove('error', 'success');
+
+        const form = document.getElementById('uploadForm');
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch('http://localhost:8000/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                messageDiv.textContent = 'Upload successful!';
+                messageDiv.classList.add('success');
+            } else {
+                messageDiv.textContent = `Error: ${result.message}`;
+                messageDiv.classList.add('error');
+            }
+        } catch (error) {
+            messageDiv.textContent = 'An error occurred while uploading the file.';
+            messageDiv.classList.add('error');
+        }
+    }
+</script>
+</body>
+</html>
