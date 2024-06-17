@@ -34,6 +34,6 @@ class VideoUploadController extends Controller
      */
     public function getVideo($filename)
     {
-        return $this->videoService->getVideo($filename);
+        return $this->videoUploadService->getVideo($filename);
     }
 }
