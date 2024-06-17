@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
+use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +12,7 @@ class VideoUploadService
 {
     public function handleUpload(Request $request)
     {
-        $receiver = new FileReceiver("file", $request, null);
+        $receiver = new FileReceiver("file", $request, HandlerFactory::classFromRequest($request));
 
         if ($receiver->isUploaded()) {
             $save = $receiver->receive();
