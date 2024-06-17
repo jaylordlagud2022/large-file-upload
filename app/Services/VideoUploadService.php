@@ -60,13 +60,13 @@ class VideoUploadService
      */
     public function getVideo($filename)
     {
-        // Check if the file exists in storage
-        if (!Storage::disk('local')->exists("uploads/$filename")) {
+        // Check if the file exists in the 'videos' directory
+        if (!Storage::disk('local')->exists("videos/$filename")) {
             return response()->json(['error' => 'File not found.'], 404);
         }
 
-        // Stream the video file
-        $path = storage_path("app/uploads/$filename");
+        // Get the path to the video file
+        $path = storage_path("app/videos/$filename");
 
         return response()->stream(function () use ($path) {
             $stream = fopen($path, 'rb');
