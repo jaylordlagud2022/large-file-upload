@@ -8,18 +8,13 @@
 4. Run `php artisan migrate`.
 5. Start the server using `php artisan serve`.
 
-## Frontend Setup
-
-1. Open the `index.html` file in your browser.
-2. Ensure the backend is running and the API endpoint is accessible.
-3. Upload a video file using the form provided.
 
 ## Running Tests
 
 1. Run `php artisan test` to execute the unit tests.
 
+## Frontend Setup
 
-## Usage
 ### Open the index.html file:
 Navigate to the root directory of your project and locate the index.html file.
 
