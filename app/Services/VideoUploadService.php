@@ -12,7 +12,7 @@ class VideoUploadService
 {
     public function handleUpload(Request $request)
     {
-        $receiver = new FileReceiver("file", $request, AbstractHandler::class);
+        $receiver = new FileReceiver("file", $request, null);
 
         if ($receiver->isUploaded()) {
             $save = $receiver->receive();
